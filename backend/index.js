@@ -5,13 +5,13 @@ const app = express()
 const morgan = require('morgan')
 const cors = require('cors')
 
+const userRoutes = require('./src/routes/user')
+
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
 
-app.get('/', (req, res) => {
-    res.send('test server')
-})
+app.use('/user', userRoutes)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
