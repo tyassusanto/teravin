@@ -5,7 +5,12 @@ const createError = require('http-errors')
 const addUser = async (req, res, next) => {
     try {
         const { name, email, mobile, } = req.body
-        const idUser = Math.floor(Math.random() * 999)
+        const date = new Date()
+        const year = date.getFullYear() - 2000
+        const month = date.getMonth() + 1
+        const random = Math.floor(Math.random() * 9999)
+        const idUser = "" + year + month + random
+        // console.log(idUser,typeof(idUser))
         const userEmail = await usersModel.findEmail(email)
         if (userEmail.length > 0) {
             return next(createError(403, 'Email already in database'))
@@ -19,30 +24,34 @@ const addUser = async (req, res, next) => {
         const resultAddUser = await usersModel.addUser(insertDataUser)
         common.response(res, insertDataUser, 200, `Success add user name : ${name}`)
     } catch (err) {
-        res.status(500).json(err)
+        res.status(500),
+            next({
+                status: 500,
+                message: 'Internal Server Error'
+            })
     }
 }
 
 const getAllUser = async (req, res) => {
     try {
         const search = req.query.name
-        // const sort = req.query.sort
-        // const order = req.query.order || 'desc'
-        // const page = parseInt(req.query.page) || 1
-        // const limit = parseInt(req.query.limit) || 2
-        // const offset = (page - 1) * limit
+        const sort = req.query.sort
+        const order = req.query.order || 'desc'
+        const page = parseInt(req.query.page) || 1
+        const limit = parseInt(req.query.limit) || 2
+        const offset = (page - 1) * limit
         const result = await usersModel.getAllUser({
             search,
-            // sort,
-            // order,
-            // limit,
-            // offset
+            sort,
+            order,
+            limit,
+            offset
         })
         common.response(res, result, 200, null, {
-            // currentPage: page,
-            // limitData: limit,
-            // totalUsers: total,
-            // totalPage: Math.ceil(total / limit)
+            currentPage: page,
+            limitData: limit,
+            totalUsers: total,
+            totalPage: Math.ceil(total / limit)
         })
     } catch (err) {
         res.status(500).json(err)
@@ -96,10 +105,10 @@ const deleteUsers = async (req, res, next) => {
         common.response(res, result, 200, `User id : ${id}, Deleted !`)
     } catch (error) {
         res.status(500),
-        next({
-            status : 500,
-            message : 'Internal Server Error'
-        })
+            next({
+                status: 500,
+                message: 'Internal Server Error'
+            })
     }
 }
 
