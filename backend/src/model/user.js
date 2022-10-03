@@ -24,10 +24,10 @@ const addUser = (insertDataUser) => {
     })
 }
 
-const getAllUser = ({ search }) => {
+const getAllUser = ({ search, sort, order, limit, offset }) => {
     return new Promise((resolve, reject) => {
-        // connection.query(`SELECT * FROM users WHERE name LIKE '%${search}% ORDER BY ${sort} ${order} LIMIT ${limit} OFFSET ${offset}'`, (error, result) => {
-        connection.query(`SELECT * FROM users WHERE name LIKE '%${search}%'`, (error, result) => {
+        connection.query(`SELECT * FROM users WHERE name LIKE '%${search}%' ORDER BY ${sort} ${order} LIMIT ${limit} OFFSET ${offset}`, (error, result) => {
+        // connection.query(`SELECT * FROM users WHERE name LIKE '%${search}%'`, (error, result) => {
             if (!error) {
                 resolve(result)
             } else {

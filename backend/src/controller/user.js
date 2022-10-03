@@ -35,23 +35,24 @@ const addUser = async (req, res, next) => {
 const getAllUser = async (req, res) => {
     try {
         const search = req.query.name
-        const sort = req.query.sort
-        const order = req.query.order || 'desc'
+        const sort = req.query.sort || 'name'
+        const order = req.query.order || 'asc'
         const page = parseInt(req.query.page) || 1
-        const limit = parseInt(req.query.limit) || 2
+        const limit = parseInt(req.query.limit) || 3
         const offset = (page - 1) * limit
         const result = await usersModel.getAllUser({
             search,
             sort,
             order,
+            offset,
             limit,
-            offset
         })
+        const [total] = await usersModel.count()
         common.response(res, result, 200, null, {
             currentPage: page,
             limitData: limit,
-            totalUsers: total,
-            totalPage: Math.ceil(total / limit)
+            totalUsers: total.total,
+            totalPage: Math.ceil(total.total/limit)
         })
     } catch (err) {
         res.status(500).json(err)
