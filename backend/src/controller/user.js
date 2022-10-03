@@ -38,7 +38,7 @@ const getAllUser = async (req, res) => {
         const sort = req.query.sort || 'name'
         const order = req.query.order || 'asc'
         const page = parseInt(req.query.page) || 1
-        const limit = parseInt(req.query.limit) || 20
+        const limit = parseInt(req.query.limit) || 9
         const offset = (page - 1) * limit
         const result = await usersModel.getAllUser({
             search,
