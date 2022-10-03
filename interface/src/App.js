@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import DetailEmployee from './components/DetailEmployee/DetailEmployee';
+import EmployeeList from './components/EmployeeList/EmployeeList';
+import AddEmployee from './components/AddEmployee/AddEmployee';
+import EditEmployee from './components/EditEmployee/EditEmployee';
+import DeleteEmployee from './components/DeleteEmployee/DeleteEmployee';
+// import AddForm from './components/AddForm/Addform';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<EmployeeList />} />
+
+        <Route path='add' element={<AddEmployee />} />
+
+        <Route path='detail' element={<DetailEmployee />} />
+
+        <Route path='edit' element={<EditEmployee />} />
+
+        <Route path='delete' element={<DeleteEmployee />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
