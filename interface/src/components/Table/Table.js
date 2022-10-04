@@ -21,7 +21,7 @@ const Table = () => {
         if (querySearch) {
             axios.get(`http://localhost:3001/user/alluser?name=${querySearch}&limit=&page=`)
                 .then((res) => {
-                    const result = res.data
+                    const result = res.data.data
                     const page = res.data.pagination
                     setUsers(result)
                     setPage(page)
@@ -59,7 +59,9 @@ const Table = () => {
                         <input
                             className='me-2'
                             type="text"
-                            placeholder="Search by name" />
+                            placeholder="Search by name"
+                            onKeyUp={handleSearch}
+                            />
                         <button class="btn btn-outline-secondary me-5" type="button" id="button-addon2">Search</button>
                         <button class="btn btn-outline-secondary"
                             type="button"
