@@ -1,34 +1,18 @@
 import React, { Fragment } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-const ListTable = () => {
-
-    const navigate = useNavigate()
-
-    const moveToEdit = () => {
-        navigate('/edit')
-    }
-
-    const moveToDetail = () => {
-        navigate('/detail')
-    }
-
-    const moveToDelete = () => {
-        navigate('/delete')
-    }
-
+const ListTable = ({ id, name, email, mobile, detail, edit, toDelete }) => {
     return (
         <Fragment>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Jacob</td>
-                    <td>Thornton@mail</td>
-                    <td>08211</td>
+                    <th scope="row">{id}</th>
+                    <td>{name}</td>
+                    <td>{email}</td>
+                    <td>{mobile}</td>
                     <td>
-                        <button className='btn btn-outline-secondary btn-sm' onClick={moveToDetail}>Detail</button>
-                        <button className='btn btn-outline-secondary btn-sm mx-2' onClick={moveToEdit}>Edit</button>
-                        <button className='btn btn-outline-secondary btn-sm'onClick={moveToDelete}>Delete</button>
+                        <button className='btn btn-outline-secondary btn-sm' onClick={detail}>Detail</button>
+                        <button className='btn btn-outline-secondary btn-sm mx-2' onClick={edit}>Edit</button>
+                        <button className='btn btn-outline-secondary btn-sm' onClick={toDelete}>Delete</button>
                     </td>
                 </tr>
             </tbody>

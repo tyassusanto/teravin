@@ -1,11 +1,32 @@
-import React, { Fragment } from 'react'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import React, { Fragment, useEffect, useState } from 'react'
+import { useLocation, useNavigate, } from 'react-router-dom'
 
-const DeleteEmployee = () => {
+const DetailEmployee = () => {
     const navigate = useNavigate()
     const backToTable = () => {
         navigate('/')
     }
+
+    const location = useLocation()
+    const locationParams = localStorage.setItem('location', JSON.stringify(location.pathname))
+    const paramsId = JSON.parse(localStorage.getItem('location'))
+    const id = paramsId.split('/')[2]
+
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/user/detail/${id}`)
+            .then((res) => {
+                const result = res.data.data
+                setUsers(result)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [location])
+
+
     return (
         <Fragment>
             <div className="">
@@ -15,32 +36,30 @@ const DeleteEmployee = () => {
                         <div>
                             <div className='d-flex justify-content-between mb-4'>
                                 <p className='m-0' style={{ width: '30%' }}>ID</p>
-                                <p className='m-0' style={{ width: '70%' }}>111111</p>
+                                <p className='m-0' style={{ width: '70%' }}>{users.id}</p>
                             </div>
                             <div className='d-flex justify-content-between mb-4'>
                                 <p className='m-0' style={{ width: '30%' }}>Name</p>
-                                <p className='m-0' style={{ width: '70%' }}>Tyas Susanto</p>
+                                <p className='m-0' style={{ width: '70%' }}>{users.name}</p>
                             </div>
                             <div className='d-flex justify-content-between mb-4'>
                                 <p className='m-0' style={{ width: '30%' }}>Email</p>
-                                <p className='m-0' style={{ width: '70%' }}>tyas@mail.com</p>
+                                <p className='m-0' style={{ width: '70%' }}>{users.email}</p>
                             </div>
                             <div className='d-flex justify-content-between mb-4'>
                                 <p className='m-0' style={{ width: '30%' }}>Mobile</p>
-                                <p className='m-0' style={{ width: '70%' }}>08211</p>
+                                <p className='m-0' style={{ width: '70%' }}>{users.mobile}</p>
                             </div>
                             <div className='d-flex justify-content-between mb-4'>
                                 <p className='m-0' style={{ width: '30%' }}>Birthdate</p>
-                                <p className='m-0' style={{ width: '70%' }}>14 Maret 1998</p>
+                                <p className='m-0' style={{ width: '70%' }}>{users.birthdate}</p>
                             </div>
-                            <div className='d-flex justify-content-between mb-5'>
+                            <div className='d-flex justify-content-between mb-4'>
                                 <p className='m-0' style={{ width: '30%' }}>Address</p>
-                                <p className='m-0' style={{ width: '70%' }}>Jakarta</p>
+                                <p className='m-0' style={{ width: '70%' }}>{users.adress}</p>
                             </div>
-                            <p className='mt-3'>Are you sure want to delete this employee?</p>
                             <span className='d-flex position-absolute bottom-0 end-0 m-5'>
-                                <button className='btn btn-sm btn-outline-secondary me-3' onClick={backToTable}>Cancel</button>
-                                <button className='btn btn-sm btn-outline-secondary me-3'>Delete</button>
+                                <button className='btn btn-sm btn-outline-secondary me-3' onClick={backToTable}>Close</button>
                             </span>
                         </div>
                     </div>
@@ -50,4 +69,4 @@ const DeleteEmployee = () => {
     )
 }
 
-export default DeleteEmployee
+export default DetailEmployee

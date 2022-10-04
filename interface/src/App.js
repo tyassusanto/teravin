@@ -1,12 +1,11 @@
 import './App.css';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import DetailEmployee from './components/DetailEmployee/DetailEmployee';
 import EmployeeList from './components/EmployeeList/EmployeeList';
-import AddEmployee from './components/AddEmployee/AddEmployee';
-import EditEmployee from './components/EditEmployee/EditEmployee';
-import DeleteEmployee from './components/DeleteEmployee/DeleteEmployee';
-// import AddForm from './components/AddForm/Addform';
+import AddEmployee from './components/Table/AddEmployee/AddEmployee';
+import DetailEmployee from './components/Table/DetailEmployee/DetailEmployee';
+import EditEmployee from './components/Table/EditEmployee/EditEmployee';
+import DeleteEmployee from './components/Table/DeleteEmployee/DeleteEmployee';
 
 
 function App() {
@@ -17,11 +16,11 @@ function App() {
 
         <Route path='add' element={<AddEmployee />} />
 
-        <Route path='detail' element={<DetailEmployee />} />
+        <Route path='detail/:id' element={<DetailEmployee />} />
 
-        <Route path='edit' element={<EditEmployee />} />
+        <Route path='edit/:id' element={<EditEmployee />} />
 
-        <Route path='delete' element={<DeleteEmployee />} />
+        <Route path='delete/:id' element={<DeleteEmployee />} />
       </Routes>
     </BrowserRouter>
   );
