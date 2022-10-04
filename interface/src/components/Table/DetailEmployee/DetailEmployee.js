@@ -3,6 +3,7 @@
 import axios from 'axios'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useLocation, useNavigate, } from 'react-router-dom'
+import dateFormat from 'dateformat';
 
 
 const DetailEmployee = () => {
@@ -29,6 +30,11 @@ const DetailEmployee = () => {
             })
     }, [location])
 
+    const bday = users.birthdate
+    const formatedDate =  dateFormat(bday, "mmmm dS, yyyy")
+    console.log('bday : ', bday)
+    console.log("format: ", formatedDate)
+
     return (
         <Fragment>
             <div className="">
@@ -54,7 +60,7 @@ const DetailEmployee = () => {
                             </div>
                             <div className='d-flex justify-content-between mb-4'>
                                 <p className='m-0' style={{ width: '30%' }}>Birthdate</p>
-                                <p className='m-0' style={{ width: '70%' }}>{users.birthdate}</p>
+                                <p className='m-0' style={{ width: '70%' }}>{formatedDate}</p>
                             </div>
                             <div className='d-flex justify-content-between mb-4'>
                                 <p className='m-0' style={{ width: '30%' }}>Address</p>

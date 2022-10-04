@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
+import dateFormat from 'dateformat'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -57,6 +58,9 @@ const EditEmployee = () => {
             })
     }
 
+    const bday = users.birthdate
+    const formatedDate =  dateFormat(bday, "mmmm dS, yyyy")
+
     return (
         <Fragment>
             <div className="">
@@ -110,8 +114,8 @@ const EditEmployee = () => {
                                 <p className='m-0' style={{ width: '30%' }} >Birthdate</p>
                                 <input className='px-2'
                                 type="text"
-                                placeholder={users.birtdate}
-                                style={{ width: '25%' }}
+                                placeholder={formatedDate}
+                                style={{ width: '30%' }}
                                 name='birthdate'
                                 value={form.birthdate}
                                 onChange={handleChange}
